@@ -155,6 +155,47 @@ const UI = (() => {
 
   function initAlbums() { renderAlbums(ALBUMS); }
 
+  // ---- Videos (rendered only when Sanity provides them) -------------------
+  function renderVideos(videos) {
+    const grid = document.getElementById("videosGrid");
+    grid.innerHTML = videos.map((v) => `
+      <div class="rounded-2xl overflow-hidden bg-white dark:bg-slate-900 shadow-sm">
+        <div class="aspect-video">
+          <iframe class="h-full w-full" src="https://www.youtube.com/embed/${v.youtubeId}"
+            title="${v.title}" loading="lazy" frameborder="0" allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        </div>
+        <div class="p-4"><h3 class="font-bold">${v.title}</h3></div>
+      </div>`).join("");
+    document.getElementById("videos").classList.remove("hidden");
+  }
+
+  // ---- Pull live content from Sanity, fall back to static data silently ---
+  async function hydrateFromSanity() {
+    if (!window.SANITY || !SANITY.enabled) return; // not configured yet
+    try {
+      const photos = await sanityFetch(
+        `*[_type=="photo"]{ _id, title, category, section,
+          "img": image.asset->url, "date": coalesce(date, _createdAt) }
+         | order(order asc, _createdAt desc)`
+      );
+      if (Array.isArray(photos) && photos.length) {
+        const fmt = (d) => { try { return new Date(d).toLocaleDateString("vi-VN"); } catch { return ""; } };
+        const albums = photos.filter((p) => p.section === "album")
+          .map((p) => ({ title: p.title, img: sanityImg(p.img, 500, 375) }));
+        const works = photos.filter((p) => p.section === "featured")
+          .map((p) => ({ title: p.title, cat: p.category || "", date: fmt(p.date), img: sanityImg(p.img, 500, 375) }));
+        if (albums.length) renderAlbums(albums);
+        if (works.length) renderWorks(works);
+      }
+
+      const videos = await sanityFetch(`*[_type=="video"]{ _id, title, youtubeId } | order(_createdAt desc)`);
+      if (Array.isArray(videos) && videos.length) renderVideos(videos);
+    } catch (e) {
+      console.warn("Sanity hydrate failed, keeping static content:", e.message);
+    }
+  }
+
   // ---- Testimonials -------------------------------------------------------
   function initTestimonials() {
     const stars = (n) => Array.from({ length: 5 }, (_, i) =>
@@ -230,6 +271,7 @@ const UI = (() => {
     initTestimonials();
     initPackages();
     initMisc();
+    hydrateFromSanity(); // upgrade gallery/videos from the CMS if configured
   }
 
   return { init };
