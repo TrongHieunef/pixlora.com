@@ -133,7 +133,7 @@ const Shop = (() => {
     const mediaHint = hasMedia
       ? `<span class="absolute bottom-3 left-3 flex items-center gap-1 rounded-full bg-black/55 px-2.5 py-1 text-xs text-white">
            <span class="material-symbols-outlined text-sm">${p.video ? "play_circle" : "collections"}</span>
-           ${p.video ? "Video" : (p.gallery_images.length + 1) + " ảnh"}</span>`
+           ${p.video ? "Video" : (p.gallery_images.length + 1) + " photos"}</span>`
       : "";
     return `
       <div class="product-card rounded-2xl bg-white dark:bg-slate-900 shadow-sm overflow-hidden flex flex-col">
@@ -155,14 +155,14 @@ const Shop = (() => {
           <div class="flex items-center gap-1 mt-2">${ratingStars(p.rating)}
             <span class="text-xs text-slate-400 ml-1">(${p.review_count})</span></div>
           <p class="text-xs mt-2 ${p.stock > 0 ? "text-accent" : "text-secondary"}">
-            ${p.stock > 0 ? `Còn hàng (${p.stock})` : "Hết hàng"}</p>
+            ${p.stock > 0 ? `In stock (${p.stock})` : "Out of stock"}</p>
           <div class="mt-auto pt-4">
             <span class="text-lg font-extrabold text-primary">${formatVND(p.price)}</span>
             <div class="flex items-center gap-2 mt-3">
               <a href="${href}" class="flex-1 text-center rounded-full border border-primary text-primary py-2 text-sm font-semibold hover:bg-primary/10 transition-colors">
-                Xem chi tiết
+                View Details
               </a>
-              <button class="add-btn grid h-10 w-10 place-items-center rounded-full bg-primary text-white hover:opacity-90" data-id="${p.id}" title="Thêm vào giỏ">
+              <button class="add-btn grid h-10 w-10 place-items-center rounded-full bg-primary text-white hover:opacity-90" data-id="${p.id}" title="Add to cart">
                 <span class="material-symbols-outlined text-base">add_shopping_cart</span>
               </button>
             </div>
@@ -174,7 +174,7 @@ const Shop = (() => {
   function renderGrid() {
     const grid = document.getElementById("productsGrid");
     if (!filtered.length) {
-      grid.innerHTML = `<p class="col-span-full text-center text-slate-400 py-10">Không có sản phẩm phù hợp.</p>`;
+      grid.innerHTML = `<p class="col-span-full text-center text-slate-400 py-10">No products found.</p>`;
       return;
     }
     const start = (page - 1) * PER_PAGE;

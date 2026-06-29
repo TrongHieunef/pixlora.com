@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi" class="light scroll-smooth">
+<html lang="en" class="light scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chi tiết sản phẩm | John Thomas Photography</title>
+  <title>Product Detail | John Thomas Photography</title>
 
   <link rel="icon"
     href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📷</text></svg>' />
@@ -30,15 +30,15 @@
   <div id="cartOverlay" class="fixed inset-0 z-[80] bg-black/40 opacity-0 pointer-events-none transition-opacity"></div>
   <aside id="cartSidebar" class="fixed top-0 right-0 z-[81] h-full w-full max-w-md translate-x-full bg-white dark:bg-slate-900 shadow-2xl transition-transform duration-300 flex flex-col">
     <div class="flex items-center justify-between p-5 border-b border-slate-200 dark:border-slate-800">
-      <h3 class="text-lg font-bold">Giỏ hàng</h3>
+      <h3 class="text-lg font-bold">Your Cart</h3>
       <button id="closeCart" class="material-symbols-outlined">close</button>
     </div>
     <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
     <div class="p-5 border-t border-slate-200 dark:border-slate-800">
       <div class="flex justify-between mb-3 font-semibold">
-        <span>Tổng</span><span id="cartTotal">0 ₫</span>
+        <span>Total</span><span id="cartTotal">0 ₫</span>
       </div>
-      <button id="checkoutBtn" class="w-full rounded-full bg-primary py-3 text-white font-semibold hover:opacity-90">Thanh toán</button>
+      <button id="checkoutBtn" class="w-full rounded-full bg-primary py-3 text-white font-semibold hover:opacity-90">Checkout</button>
     </div>
   </aside>
 
@@ -54,7 +54,7 @@
       </a>
       <div class="flex items-center gap-3">
         <a href="index.html#shop" class="hidden sm:flex items-center gap-1 text-sm font-medium hover:text-primary">
-          <span class="material-symbols-outlined text-base">arrow_back</span> Quay lại Shop</a>
+          <span class="material-symbols-outlined text-base">arrow_back</span> Back to Shop</a>
         <button id="cartBtn" class="relative material-symbols-outlined">
           shopping_cart
           <span id="cartCount" class="absolute -top-2 -right-2 grid h-5 w-5 place-items-center rounded-full bg-secondary text-[10px] text-white">0</span>
@@ -67,7 +67,7 @@
   <main class="mx-auto w-full max-w-6xl px-4 sm:px-6 py-8">
     <!-- Breadcrumb -->
     <nav class="text-sm text-slate-400 mb-6">
-      <a href="index.html" class="hover:text-primary">Trang chủ</a> /
+      <a href="index.html" class="hover:text-primary">Home</a> /
       <a href="index.html#shop" class="hover:text-primary">Shop</a> /
       <span id="crumbName" class="text-slate-600 dark:text-slate-300">…</span>
     </nav>
