@@ -11,7 +11,7 @@
 // ---------------------------------------------------------------------------
 
 const SANITY = {
-  projectId: "dt8uv51h",    // John Doe Photo (public read — not a secret)
+  projectId: "6exe5b7g",    // John Doe Photo (public read — not a secret)
   dataset: "production",
   apiVersion: "2024-01-01",
   get enabled() { return Boolean(this.projectId); },
