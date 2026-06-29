@@ -20,7 +20,7 @@
     "description": "Portrait prime lens with beautiful bokeh.",
     "price": 8999999, "category": "lens", "status": "active", "badge": "popular",
     "stock": 8, "rating": 4.5, "review_count": 28,
-    "main_image": "https://images.unsplash.com/photo-1617005082133-5c66db5b8a3a?w=600",
+    "main_image": "https://images.unsplash.com/photo-1606986628470-26a67fa4730c?w=600",
     "gallery_images": [
       "https://images.unsplash.com/photo-1606986628253-05620e9b1a3e?w=900",
       "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=900"
@@ -33,7 +33,7 @@
     "description": "Versatile prime lens for portraits and everyday photography.",
     "price": 4599999, "category": "lens", "status": "active", "badge": "new",
     "stock": 20, "rating": 4.6, "review_count": 39,
-    "main_image": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600",
+    "main_image": "https://images.unsplash.com/photo-1660477946008-8cd03548bdba?w=600",
     "gallery_images": [], "specs": { "focal": "50mm" }, "features": [],
     "created_at": "2024-12-01", "updated_at": "2024-12-01"
   },
