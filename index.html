@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" class="light scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>John Doe Photography | Portfolio &amp; Shop</title>
+
+  <link rel="icon"
+    href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📷</text></svg>' />
+
+  <!-- Fonts + icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+
+  <!-- Tailwind (CDN) + config -->
+  <script src="https://cdn.tailwindcss.com/?plugins=forms,container-queries"></script>
+  <script src="js/config.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 font-display">
+
+  <!-- Loading screen -->
+  <div id="loadingScreen" class="fixed inset-0 z-[100] flex items-center justify-center bg-background-light dark:bg-background-dark transition-opacity duration-500">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed top-6 right-6 z-[90] translate-x-[150%] transition-transform duration-300 rounded-lg bg-slate-900 text-white px-5 py-3 shadow-lg flex items-center gap-2">
+    <span class="material-symbols-outlined" id="toastIcon">check_circle</span>
+    <span id="toastMsg">Done</span>
+  </div>
+
+  <!-- Cart overlay + sidebar -->
+  <div id="cartOverlay" class="fixed inset-0 z-[80] bg-black/40 opacity-0 pointer-events-none transition-opacity"></div>
+  <aside id="cartSidebar" class="fixed top-0 right-0 z-[81] h-full w-full max-w-md translate-x-full bg-white dark:bg-slate-900 shadow-2xl transition-transform duration-300 flex flex-col">
+    <div class="flex items-center justify-between p-5 border-b border-slate-200 dark:border-slate-800">
+      <h3 class="text-lg font-bold">Your Cart</h3>
+      <button id="closeCart" class="material-symbols-outlined">close</button>
+    </div>
+    <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
+    <div class="p-5 border-t border-slate-200 dark:border-slate-800">
+      <div class="flex justify-between mb-3 font-semibold">
+        <span>Total</span><span id="cartTotal">0 ₫</span>
+      </div>
+      <button id="checkoutBtn" class="w-full rounded-full bg-primary py-3 text-white font-semibold hover:opacity-90">Checkout</button>
+    </div>
+  </aside>
+
+  <button id="backToTop" class="fixed bottom-6 right-6 z-50 grid h-12 w-12 place-items-center rounded-full bg-primary text-white shadow-lg opacity-0 pointer-events-none transition-opacity">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+  <div class="relative flex h-auto min-h-screen w-full flex-col">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 border-b border-solid border-slate-200/70 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur">
+      <div class="mx-auto w-full max-w-6xl flex items-center justify-between whitespace-nowrap px-4 sm:px-6 py-3">
+      <a href="#" class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary text-3xl">photo_camera</span>
+        <div class="leading-tight">
+          <p class="font-bold text-base">John Doe</p>
+          <p class="text-xs text-slate-500">Photography &amp; Gear</p>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#gallery" class="hover:text-primary">Gallery</a>
+        <a href="#about" class="hover:text-primary">About</a>
+        <a href="#shop" class="hover:text-primary">Shop</a>
+        <a href="#contact" class="hover:text-primary">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="cartBtn" class="relative material-symbols-outlined">
+          shopping_cart
+          <span id="cartCount" class="absolute -top-2 -right-2 grid h-5 w-5 place-items-center rounded-full bg-secondary text-[10px] text-white">0</span>
+        </button>
+        <button id="darkToggle" class="material-symbols-outlined">dark_mode</button>
+        <button id="printBtn" class="material-symbols-outlined hidden sm:block">print</button>
+        <button id="mobileMenuBtn" class="material-symbols-outlined md:hidden">menu</button>
+      </div>
+      </div>
+    </header>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="fixed inset-0 z-[60] hidden bg-white dark:bg-background-dark p-6">
+      <div class="flex justify-end"><button id="closeMobileMenu" class="material-symbols-outlined">close</button></div>
+      <nav class="mt-8 flex flex-col gap-6 text-lg font-semibold">
+        <a href="#gallery" class="mobile-link">Gallery</a>
+        <a href="#about" class="mobile-link">About</a>
+        <a href="#shop" class="mobile-link">Shop</a>
+        <a href="#contact" class="mobile-link">Contact</a>
+      </nav>
+    </div>
+
+    <main class="mx-auto w-full max-w-6xl px-4 sm:px-6 py-6 flex flex-col gap-16">
+
+      <!-- Hero carousel -->
+      <section id="heroCarousel" class="carousel-container rounded-xl overflow-hidden fade-in relative h-[460px]">
+        <div id="heroTrack" class="flex h-full transition-transform duration-700"></div>
+        <button id="heroPrev" class="absolute left-4 top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-black/40 text-white">
+          <span class="material-symbols-outlined">chevron_left</span></button>
+        <button id="heroNext" class="absolute right-4 top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-black/40 text-white">
+          <span class="material-symbols-outlined">chevron_right</span></button>
+        <div id="heroDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"></div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="scroll-mt-20 fade-in">
+        <div class="rounded-2xl bg-white dark:bg-slate-900 p-8 shadow-sm grid md:grid-cols-[280px_1fr] gap-8 items-center">
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400" class="rounded-2xl ring-4 ring-primary/40 w-full" alt="John Doe" />
+            <span class="absolute bottom-3 right-3 flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs text-white">
+              <span class="material-symbols-outlined text-sm">verified</span> Pro</span>
+          </div>
+          <div>
+            <h1 class="text-4xl font-extrabold">Hello, I'm John Doe</h1>
+            <p class="text-primary font-semibold mt-1">Professional Photographer &amp; Visual Storyteller</p>
+            <p class="text-slate-500 mt-4 leading-relaxed">With over 8 years of experience in photography, I specialize in
+              landscape, portrait, and travel photography. Each photo tells a story preserved forever.</p>
+            <div class="flex flex-wrap gap-3 mt-5" id="aboutTags"></div>
+            <div class="grid grid-cols-3 mt-8 rounded-xl bg-slate-50 dark:bg-slate-800 p-6 text-center" id="aboutStats"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery / Albums -->
+      <section id="gallery" class="scroll-mt-20 fade-in">
+        <h2 class="text-3xl font-extrabold mb-6">Photo Albums</h2>
+        <div id="albumsGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+      </section>
+
+      <!-- Featured works carousel -->
+      <section class="fade-in">
+        <h2 class="text-3xl font-extrabold mb-6">Featured Works</h2>
+        <div class="relative">
+          <div class="overflow-hidden">
+            <div id="worksTrack" class="flex gap-4 transition-transform duration-500"></div>
+          </div>
+          <button id="worksPrev" class="absolute -left-3 top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-white dark:bg-slate-800 shadow">
+            <span class="material-symbols-outlined">chevron_left</span></button>
+          <button id="worksNext" class="absolute -right-3 top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-white dark:bg-slate-800 shadow">
+            <span class="material-symbols-outlined">chevron_right</span></button>
+        </div>
+      </section>
+
+      <!-- Shop -->
+      <section id="shop" class="scroll-mt-20 fade-in">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-extrabold">Camera Gear Shop</h2>
+          <p class="text-slate-500">Professional photography equipment and accessories</p>
+        </div>
+
+        <div class="rounded-2xl bg-white dark:bg-slate-900 p-5 shadow-sm flex flex-col lg:flex-row lg:items-center gap-4 mb-8">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm">
+              <span class="material-symbols-outlined text-base">filter_list</span> Filters</span>
+            <div id="categoryFilters" class="flex flex-wrap gap-2"></div>
+          </div>
+          <div class="flex items-center gap-3 lg:ml-auto">
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-base">search</span>
+              <input id="searchInput" placeholder="Search products..." class="rounded-full border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 pl-10 pr-4 py-2 text-sm" />
+            </div>
+            <select id="sortSelect" class="rounded-full border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm py-2">
+              <option value="newest">Newest First</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+              <option value="popular">Most Popular</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="productsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <div id="pagination" class="flex justify-center items-center gap-2 mt-10"></div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="scroll-mt-20 fade-in">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-extrabold">Client Testimonials</h2>
+          <p class="text-slate-500">What my clients say about working with me</p>
+        </div>
+        <div id="testimonialsGrid" class="grid md:grid-cols-3 gap-6"></div>
+      </section>
+
+      <!-- Packages -->
+      <section class="scroll-mt-20 fade-in">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-extrabold">Photography Packages</h2>
+          <p class="text-slate-500">Professional photography services tailored to your needs</p>
+        </div>
+        <div id="packagesGrid" class="grid md:grid-cols-3 gap-6 items-stretch"></div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="scroll-mt-20 fade-in">
+        <div class="grid lg:grid-cols-2 gap-10 rounded-2xl bg-white dark:bg-slate-900 p-8 shadow-sm">
+          <div>
+            <h2 class="text-3xl font-extrabold mb-3">Contact Me</h2>
+            <p class="text-slate-500 mb-6">Have a project to collaborate on or want to schedule a photoshoot? Reach out below.</p>
+            <form id="contactForm" class="space-y-4">
+              <input name="name" required placeholder="Name" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800" />
+              <input name="email" type="email" required placeholder="Email" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800" />
+              <textarea name="content" rows="4" required placeholder="Content" class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"></textarea>
+              <button class="rounded-full bg-primary px-6 py-3 text-white font-semibold hover:opacity-90">Send a Message</button>
+            </form>
+          </div>
+          <div class="space-y-5 text-sm">
+            <div class="flex gap-3"><span class="material-symbols-outlined text-primary">mail</span>
+              <div><p class="font-semibold">Email</p><p class="text-slate-500">copyright@example.com</p></div></div>
+            <div class="flex gap-3"><span class="material-symbols-outlined text-primary">call</span>
+              <div><p class="font-semibold">Hotline</p><p class="text-slate-500">+84 123 456 789</p></div></div>
+            <div class="flex gap-3"><span class="material-symbols-outlined text-primary">location_on</span>
+              <div><p class="font-semibold">Address</p><p class="text-slate-500">New York, NY 10001, USA</p></div></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-16 border-t border-slate-200 dark:border-slate-800">
+      <div class="mx-auto w-full max-w-6xl py-8 px-4 sm:px-6 text-center text-sm text-slate-500">
+        📷 John Doe Photography — © 2024. All rights reserved.
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/sanity.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/shop.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

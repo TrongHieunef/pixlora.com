@@ -1,0 +1,16 @@
+{
+  "name": "johndoe-photography-server",
+  "version": "1.0.0",
+  "description": "Express + SQLite backend for the John Doe Photography static site",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node db.js --seed"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2"
+  }
+}

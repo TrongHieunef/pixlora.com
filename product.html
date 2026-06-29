@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi" class="light scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi tiết sản phẩm | John Doe Photography</title>
+
+  <link rel="icon"
+    href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📷</text></svg>' />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com/?plugins=forms,container-queries"></script>
+  <script src="js/config.js"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 font-display">
+
+  <!-- Toast -->
+  <div id="toast" class="fixed top-6 right-6 z-[90] translate-x-[150%] transition-transform duration-300 rounded-lg bg-slate-900 text-white px-5 py-3 shadow-lg flex items-center gap-2">
+    <span class="material-symbols-outlined" id="toastIcon">check_circle</span>
+    <span id="toastMsg">Done</span>
+  </div>
+
+  <!-- Cart overlay + sidebar -->
+  <div id="cartOverlay" class="fixed inset-0 z-[80] bg-black/40 opacity-0 pointer-events-none transition-opacity"></div>
+  <aside id="cartSidebar" class="fixed top-0 right-0 z-[81] h-full w-full max-w-md translate-x-full bg-white dark:bg-slate-900 shadow-2xl transition-transform duration-300 flex flex-col">
+    <div class="flex items-center justify-between p-5 border-b border-slate-200 dark:border-slate-800">
+      <h3 class="text-lg font-bold">Giỏ hàng</h3>
+      <button id="closeCart" class="material-symbols-outlined">close</button>
+    </div>
+    <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
+    <div class="p-5 border-t border-slate-200 dark:border-slate-800">
+      <div class="flex justify-between mb-3 font-semibold">
+        <span>Tổng</span><span id="cartTotal">0 ₫</span>
+      </div>
+      <button id="checkoutBtn" class="w-full rounded-full bg-primary py-3 text-white font-semibold hover:opacity-90">Thanh toán</button>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 border-b border-solid border-slate-200/70 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur">
+    <div class="mx-auto w-full max-w-6xl flex items-center justify-between whitespace-nowrap px-4 sm:px-6 py-3">
+      <a href="index.html" class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary text-3xl">photo_camera</span>
+        <div class="leading-tight">
+          <p class="font-bold text-base">John Doe</p>
+          <p class="text-xs text-slate-500">Photography &amp; Gear</p>
+        </div>
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="index.html#shop" class="hidden sm:flex items-center gap-1 text-sm font-medium hover:text-primary">
+          <span class="material-symbols-outlined text-base">arrow_back</span> Quay lại Shop</a>
+        <button id="cartBtn" class="relative material-symbols-outlined">
+          shopping_cart
+          <span id="cartCount" class="absolute -top-2 -right-2 grid h-5 w-5 place-items-center rounded-full bg-secondary text-[10px] text-white">0</span>
+        </button>
+        <button id="darkToggle" class="material-symbols-outlined">dark_mode</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto w-full max-w-6xl px-4 sm:px-6 py-8">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-400 mb-6">
+      <a href="index.html" class="hover:text-primary">Trang chủ</a> /
+      <a href="index.html#shop" class="hover:text-primary">Shop</a> /
+      <span id="crumbName" class="text-slate-600 dark:text-slate-300">…</span>
+    </nav>
+
+    <!-- Rendered by product-page.js -->
+    <div id="productDetail">
+      <div class="grid place-items-center py-24"><div class="spinner"></div></div>
+    </div>
+  </main>
+
+  <footer class="mt-16 border-t border-slate-200 dark:border-slate-800">
+    <div class="mx-auto w-full max-w-6xl py-8 px-4 sm:px-6 text-center text-sm text-slate-500">
+      📷 John Doe Photography — © 2024. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/sanity.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/shop.js"></script>
+  <script src="js/product-page.js"></script>
+</body>
+</html>
