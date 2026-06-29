@@ -49,7 +49,7 @@
   }
 
   function render(p) {
-    document.title = `${p.name} | John Doe Photography`;
+    document.title = `${p.name} | John Thomas Photography`;
     document.getElementById("crumbName").textContent = p.name;
 
     const items = mediaItems(p);

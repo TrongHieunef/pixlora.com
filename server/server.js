@@ -103,6 +103,6 @@ app.get("/api/health", (_req, res) => res.json({ ok: true }));
 app.use(express.static(ROOT));
 
 app.listen(PORT, () => {
-  console.log(`\n  John Doe Photography running at http://localhost:${PORT}`);
+  console.log(`\n  John Thomas Photography running at http://localhost:${PORT}`);
   console.log(`  API base: http://localhost:${PORT}/api\n`);
 });

@@ -1,4 +1,4 @@
-# John Doe Photography — Static Clone
+# John Thomas Photography — Static Clone
 
 A fully **static** portfolio + camera-gear shop. No build step, no framework, no
 real backend — the product API call (`fetch("data/products.json")`) is mocked

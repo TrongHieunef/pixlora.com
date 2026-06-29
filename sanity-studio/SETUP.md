@@ -13,7 +13,7 @@ Trong code FE chỉ có `projectId` — KHÔNG phải bí mật, KHÔNG có toke
 2. Ở terminal, tạo Studio:
 
    ```bash
-   npm create sanity@latest -- --template clean --create-project "John Doe Photo" --dataset production
+   npm create sanity@latest -- --template clean --create-project "John Thomas Photo" --dataset production
    ```
 
    - Đăng nhập khi nó hỏi.

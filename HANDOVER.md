@@ -1,4 +1,4 @@
-# Tài liệu bàn giao — John Doe Photography
+# Tài liệu bàn giao — John Thomas Photography
 
 Website giới thiệu nhiếp ảnh + quản lý nội dung bằng **Sanity CMS**. Chủ web tự
 đăng nhập, tự up ảnh/video, web tự cập nhật. **Không cần thuê backend, không tốn
@@ -147,7 +147,7 @@ npm create sanity@latest
 
 Trả lời các câu hỏi:
 - **Login** → chọn Google/GitHub (mở trình duyệt đăng nhập).
-- **Create new project** → đặt tên (vd `John Doe Photo`).
+- **Create new project** → đặt tên (vd `John Thomas Photo`).
 - **Use the default dataset configuration? → Yes** (tạo dataset `production`).
 - **Project template → Clean project with no predefined schemas**.
 - **TypeScript? → No**.
