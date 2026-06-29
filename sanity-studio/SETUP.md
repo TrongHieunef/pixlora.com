@@ -22,13 +22,14 @@ Trong code FE chỉ có `projectId` — KHÔNG phải bí mật, KHÔNG có toke
 
 ## Bước 2 — Gắn schema (cấu trúc dữ liệu)
 
-Copy 4 file trong [`schemaTypes/`](schemaTypes/) ở đây đè vào thư mục
+Copy 2 file trong [`schemaTypes/`](schemaTypes/) ở đây đè vào thư mục
 `schemaTypes/` của studio vừa tạo:
 
-- `photo.js`   — ảnh trang chủ (Album / Featured Works)
-- `video.js`   — video trang chủ
 - `product.js` — sản phẩm (ảnh chính + gallery nhiều ảnh + video YouTube)
-- `index.js`   — đăng ký 3 schema trên
+- `index.js`   — đăng ký schema
+
+> Sanity **chỉ quản lý sản phẩm** (cho phần xem chi tiết của camera shop). Trang
+> chủ (Photo Albums...) là nội dung tĩnh trong code, không qua Sanity.
 
 ## Bước 3 — Chạy Studio và up thử
 
@@ -37,9 +38,9 @@ cd <thư-mục-studio>
 npm run dev
 ```
 
-Mở http://localhost:3333 → **Create** → thêm **Ảnh** (chọn Album/Featured),
-**Video**, và **Sản phẩm** (up Ảnh chính + Gallery nhiều ảnh + YouTube ID). Đây
-chính là trang admin chủ web sẽ dùng.
+Mở http://localhost:3333 → **Create → Sản phẩm** → điền tên/giá, up **Ảnh
+chính**, **Gallery** nhiều ảnh, dán **YouTube ID** (video). Đây là dữ liệu cho
+trang xem chi tiết sản phẩm.
 
 > Deploy Studio online miễn phí để chủ web tự vào: `npx sanity deploy`
 > → được link dạng `ten-ban.sanity.studio`.

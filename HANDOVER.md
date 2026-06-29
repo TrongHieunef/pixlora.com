@@ -79,8 +79,6 @@ cac/                          ← WEB PUBLIC (phần chính, deploy cái này)
 │
 ├── sanity-studio/            ← FILE THAM KHẢO để copy vào Studio (xem mục 5)
 │   ├── schemaTypes/
-│   │   ├── photo.js          # Schema: ảnh trang chủ (album / featured)
-│   │   ├── video.js          # Schema: video trang chủ
 │   │   ├── product.js        # Schema: sản phẩm (gallery nhiều ảnh + video)
 │   │   └── index.js          # Đăng ký schema
 │   └── SETUP.md
@@ -165,21 +163,21 @@ export default defineConfig({
 ```
 
 ### Bước 2 — Gắn schema
-Copy 4 file từ [`sanity-studio/schemaTypes/`](sanity-studio/schemaTypes/) (trong
+Copy 2 file từ [`sanity-studio/schemaTypes/`](sanity-studio/schemaTypes/) (trong
 project này) **đè vào** thư mục `schemaTypes/` của Studio vừa tạo:
-`photo.js`, `video.js`, `product.js`, `index.js`.
+`product.js`, `index.js`.
 
-> Sanity quản lý: **ảnh + video TRANG CHỦ** (`photo`, `video`) và **sản phẩm**
-> cho Shop + trang chi tiết (`product`). Các phần còn lại của trang chủ (text
-> About, testimonials, packages) là nội dung tĩnh trong code (xem mục 9).
+> Sanity **chỉ quản lý SẢN PHẨM** (cho phần xem chi tiết của camera shop). TRANG
+> CHỦ (Photo Albums, Featured Works, About, testimonials, packages) là **nội
+> dung tĩnh** trong code (xem mục 9) — không qua Sanity.
 
 ### Bước 3 — Chạy thử Studio
 ```bash
 cd <studio>
 npm run dev      # mở http://localhost:3333
 ```
-Bấm **Create** → thêm vài **Ảnh** (chọn Album/Featured), **Video**, và **Sản
-phẩm** (up Ảnh chính, Gallery nhiều ảnh, YouTube ID) để test.
+Bấm **Create → Sản phẩm** → thêm sản phẩm: tên, giá, **Ảnh chính**, **Gallery**
+nhiều ảnh, **YouTube ID** (video). Đây là dữ liệu cho trang xem chi tiết.
 
 ### Bước 4 — Mở quyền cho web ĐỌC (CORS)
 Mỗi origin (domain + cổng) của web phải được cho phép. Chạy trong thư mục Studio:
@@ -213,30 +211,24 @@ const SANITY = {
 };
 ```
 
-**Phạm vi của Sanity:** ảnh + video **trang chủ** (Albums, Featured Works,
-Videos) và **sản phẩm** (Shop + trang chi tiết). Nếu để trống `projectId` hoặc
-CMS chưa có nội dung → web tự dùng dữ liệu tĩnh mặc định, KHÔNG bị trắng.
+**Phạm vi của Sanity:** chỉ **sản phẩm** (Shop + trang xem chi tiết). Trang chủ
+(Photo Albums, Featured Works...) là **tĩnh** (mục 9). Nếu để trống `projectId`
+hoặc CMS chưa có sản phẩm → Shop tự dùng `data/products.json`, web vẫn chạy.
 
 **Cơ chế hoạt động** (không cần sửa, chỉ để hiểu):
 
 1. `js/sanity.js` cung cấp hàm `sanityFetch(groq)` — gọi thẳng API Sanity qua
    HTTP bằng câu truy vấn GROQ, **không token**.
-2. [`js/ui.js`](js/ui.js) `hydrateFromSanity()` chạy lúc tải trang chủ: lấy
-   `photo` (đổ vào Albums/Featured Works) và `video` (section Videos). Không có
-   thì giữ ảnh tĩnh.
-3. [`js/shop.js`](js/shop.js) `loadProducts()` lấy sản phẩm theo thứ tự ưu tiên:
+2. [`js/shop.js`](js/shop.js) `loadProducts()` lấy sản phẩm theo thứ tự ưu tiên:
    **Sanity → `/api/products` (nếu chạy backend) → `data/products.json` → bản
    nhúng trong `js/data.js`**. Cả Shop lẫn trang chi tiết đều dùng hàm này.
-4. Ảnh trả về là URL CDN Sanity; web tự thêm `?w=...&h=...&fit=crop` để resize
+3. Ảnh trả về là URL CDN Sanity; web tự thêm `?w=...&h=...&fit=crop` để resize
    (hàm `sanityImg`). `specs` dạng mảng `{key,value}` được tự gộp thành object.
 
 Ánh xạ dữ liệu:
 | Trong Sanity | Hiển thị ở web |
 |---|---|
-| `photo` (section = album) | Lưới **Photo Albums** |
-| `photo` (section = featured) | Carousel **Featured Works** |
-| `video` | Section **Videos** trang chủ |
-| `product` | **Shop** + trang **chi tiết sản phẩm** |
+| `product` → `mainImage`, `gallery[]`, `youtubeId` | **Shop** + trang **chi tiết sản phẩm** (gallery nhiều ảnh + video) |
 
 ### Trang chi tiết sản phẩm (Product detail)
 - Là **một TRANG RIÊNG** (`product.html`), không phải popup. Trong Shop, bấm
