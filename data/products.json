@@ -5,7 +5,12 @@
     "price": 38999999, "category": "camera", "status": "active", "badge": "popular",
     "stock": 8, "rating": 4.7, "review_count": 124,
     "main_image": "https://images.unsplash.com/photo-1660477946008-8cd03548bdba?w=600",
-    "gallery_images": [], "specs": { "sensor": "Full-frame", "mp": "24.2" },
+    "gallery_images": [
+      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=1000",
+      "https://images.unsplash.com/photo-1519183071298-a2962feb14f4?w=1000"
+    ],
+    "video": "aqz-KE-bpKQ",
+    "specs": { "sensor": "Full-frame", "mp": "24.2" },
     "features": ["4K video", "5-axis stabilization"],
     "created_at": "2020-03-05", "updated_at": "2020-03-05"
   },
@@ -15,7 +20,11 @@
     "price": 8999999, "category": "lens", "status": "active", "badge": "popular",
     "stock": 8, "rating": 4.5, "review_count": 28,
     "main_image": "https://images.unsplash.com/photo-1606986628470-26a67fa4730c?w=600",
-    "gallery_images": [], "specs": { "focal": "85mm", "aperture": "f/1.8" },
+    "gallery_images": [
+      "https://images.unsplash.com/photo-1617005082133-5c66db5b8a3a?w=1000",
+      "https://images.unsplash.com/photo-1606986628470-26a67fa4730c?w=1000"
+    ],
+    "specs": { "focal": "85mm", "aperture": "f/1.8" },
     "features": ["Fast autofocus"], "created_at": "2020-01-20", "updated_at": "2020-01-20"
   },
   {
@@ -69,7 +78,12 @@
     "price": 45999999, "category": "camera", "status": "active", "badge": "popular",
     "stock": 5, "rating": 4.9, "review_count": 98,
     "main_image": "https://images.unsplash.com/photo-1519183071298-a2962feb14f4?w=600",
-    "gallery_images": [], "specs": {}, "features": [],
+    "gallery_images": [
+      "https://images.unsplash.com/photo-1519183071298-a2962feb14f4?w=1000",
+      "https://images.unsplash.com/photo-1606980625105-5e8f0a8c9f9b?w=1000"
+    ],
+    "video": "aqz-KE-bpKQ",
+    "specs": {}, "features": [],
     "created_at": "2024-11-17", "updated_at": "2024-11-17"
   }
 ]
