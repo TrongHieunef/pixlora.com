@@ -21,7 +21,11 @@ async function loadSanityProducts() {
     } | order(_createdAt desc)`);
     if (!Array.isArray(rows) || !rows.length) return null;
     rows.forEach((r) => {
-      r.main_image = sanityImg(r.main_image, 600, 450);
+      // Ảnh đại diện dùng ở card sản phẩm (trang shop) — cắt vuông gọn gàng.
+      const rawMain = r.main_image;
+      r.main_image = sanityImg(rawMain, 600, 450);
+      // Ảnh dùng cho trang chi tiết (carousel) — KHÔNG crop, giữ nguyên tỉ lệ gốc.
+      r.main_image_full = sanityImg(rawMain, 1400, undefined, false);
       r.gallery_images = (r.gallery_images || []).map((u) => sanityImg(u, 1400, undefined, false));
       if (Array.isArray(r.specs)) {
         r.specs = r.specs.reduce((o, s) => { if (s && s.key) o[s.key] = s.value; return o; }, {});
