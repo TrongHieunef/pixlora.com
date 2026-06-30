@@ -36,7 +36,11 @@
 
   // ---- Helpers ------------------------------------------------------------
   function mediaItems(p) {
-    const imgs = [p.main_image, ...(p.gallery_images || [])].filter(Boolean);
+    // Dùng main_image_full (ảnh không bị crop) nếu có — chỉ sản phẩm lấy từ
+    // Sanity mới có field này. Sản phẩm tĩnh/fallback không có thì dùng
+    // main_image như cũ.
+    const mainFull = p.main_image_full || p.main_image;
+    const imgs = [mainFull, ...(p.gallery_images || [])].filter(Boolean);
     const items = imgs.map((url) => ({ type: "image", url }));
     if (p.video) items.push({ type: "video", youtubeId: p.video });
     return items;
