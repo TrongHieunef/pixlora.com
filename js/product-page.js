@@ -47,7 +47,7 @@
       ? `<iframe class="h-full w-full" src="https://www.youtube.com/embed/${it.youtubeId}"
            title="${name}" frameborder="0" allowfullscreen
            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`
-      : `<img src="${it.url}" alt="${name}" class="h-full w-full object-cover">`;
+      : `<img src="${it.url}" alt="${name}" class="h-full w-full object-contain">`;
   }
 
   function fmtDateTime(d) {
