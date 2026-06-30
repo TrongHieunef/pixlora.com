@@ -31,8 +31,9 @@ async function sanityFetch(groq) {
 
 // Append Sanity image-pipeline params (resize / crop / auto-format) to a
 // CDN image URL returned by `image.asset->url`.
-function sanityImg(url, w = 600, h = 450) {
+function sanityImg(url, w = 600, h = 450, crop = true) {
   if (!url) return "";
+  if (!crop) return `${url}?w=${w}&fit=max&auto=format`;
   return `${url}?w=${w}&h=${h}&fit=crop&auto=format`;
 }
 
