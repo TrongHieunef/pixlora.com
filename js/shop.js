@@ -22,7 +22,7 @@ async function loadSanityProducts() {
     if (!Array.isArray(rows) || !rows.length) return null;
     rows.forEach((r) => {
       r.main_image = sanityImg(r.main_image, 600, 450);
-      r.gallery_images = (r.gallery_images || []).map((u) => sanityImg(u, 1000, 750));
+      r.gallery_images = (r.gallery_images || []).map((u) => sanityImg(u, 1400, undefined, false));
       if (Array.isArray(r.specs)) {
         r.specs = r.specs.reduce((o, s) => { if (s && s.key) o[s.key] = s.value; return o; }, {});
       }
